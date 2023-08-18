@@ -1,0 +1,44 @@
+defaults:
+  - _self_
+  - override hydra/hydra_logging: disabled
+  - override hydra/job_logging: disabled
+
+hydra:
+  output_subdir: null
+  run:
+    dir: .
+
+loggers:
+  tensorboard:
+    dir: 'tb_logs'
+    subdir: 'transformerlm'
+
+tokenizer:
+  dir: 'spm_artifacts'
+  model_prefix: 'sp_bpe_1024'
+
+model:
+  d_model: 512
+  num_heads: 8
+  d_hid: 2048
+  num_layers: 8
+  dropout: 0.1
+  max_sequence_length: 512
+
+optimizer:
+  learning_rate: 1e-4
+
+train:
+  dataset:
+    data: 'materials/train.json'
+  dataloader:
+    batch_size: 32
+
+eval:
+  dataset:
+    data: 'materials/val.json'
+  dataloader:
+    batch_size: 32
+
+trainer:
+  max_epoch: 500
